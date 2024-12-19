@@ -1,0 +1,31 @@
+{
+  "name": "prep50-admin",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@supabase/postgrest-js": "^1.17.7",
+    "@types/node": "^22.10.2",
+    "@types/toastify-js": "^1.12.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "jose": "^5.9.6",
+    "postcss": "^8.4.49",
+    "quill": "^2.0.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.17",
+    "toastify-js": "^1.12.0",
+    "vike-react": "^0.5.10"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vike": "^0.4.209",
+    "vite": "^6.0.3",
+    "@types/react": "^18.3.16",
+    "@types/react-dom": "^18.3.5"
+  },
+  "type": "module"
+}
