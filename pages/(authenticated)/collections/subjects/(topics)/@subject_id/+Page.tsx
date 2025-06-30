@@ -1,19 +1,19 @@
 import { ChangeEvent, Fragment, useEffect, useRef, useState } from "react";
-import { postgrest, WithAuth } from "../../../../../../src/utils/postgrest";
-import Table from "../../../../../../components/Table";
-import { sortTag, tagTitle } from "../../../../../../src/utils/helper";
+import { postgrest, WithAuth } from "@src/utils/postgrest";
+import Table from "@components/Table";
+import { sortTag, tagTitle } from "@src/utils/helper";
 import {
   ActivityIndicator,
   ExpandIcon,
   KeyIcon,
-} from "../../../../../../components/Icons";
-import { CloseFn, mountModal } from "../../../../../../components/Modal";
+} from "@components/Icons";
+import { CloseFn, mountModal } from "@components/Modal";
 import { usePageContext } from "vike-react/usePageContext";
-import { SelectSubject, SelectTag } from "../../../../../../components/Select";
-import Input from "../../../../../../components/Input";
-import Button from "../../../../../../components/Button";
-import { showAlertDialog } from "../../../../../../components/Dialog";
-import Toast from "../../../../../../src/utils/toast";
+import { SelectSubject, SelectTag } from "@components/Select";
+import Input from "@components/Input";
+import Button from "@components/Button";
+import { showAlertDialog } from "@components/Dialog";
+import Toast from "@src/utils/toast";
 
 export default function () {
   const [topics, setTopics] = useState<Topic[]>([]);

@@ -31,25 +31,11 @@ export default class Carbon extends Date {
     }
 
     public static fromMonth(month: number, day?: number) {
-        return new Carbon(
-            new Date().getFullYear(),
-            month,
-            day ?? 1,
-        );
+        return new Carbon(new Date().getFullYear(), month, day ?? 1);
     }
 
     public static fromYear(year: number, month?: number, day?: number) {
-        return new Carbon(
-            year,
-            month ?? 1,
-            day ?? 1,
-        );
-    }
-
-    public static lastMonthOfYear(year?: number) {
-        return year || year == new Date().getFullYear()
-            ? new Date().getMonth() + 1
-            : 12;
+        return new Carbon(year, month ?? 1, day ?? 1);
     }
 
     addSecond(sec: number): Carbon {
@@ -83,31 +69,29 @@ export default class Carbon extends Date {
             this.getMinutes() >= 10
                 ? this.getMinutes()
                 : `0${this.getMinutes()}`
-        }${this.getHours() > 12 ? "PM" : "AM"}, ${this.getFullYear()}-${
-            tenth(this.getMonth() + 1)
-        }-${tenth(this.getDate())}`;
+        }${this.getHours() > 12 ? "PM" : "AM"}, ${this.getFullYear()}-${tenth(
+            this.getMonth() + 1,
+        )}-${tenth(this.getDate())}`;
     }
 
     format(): string {
-        return `${this.getFullYear()}-${tenth(this.getMonth() + 1)}-${
-            tenth(this.getDate())
-        }`;
+        return `${this.getFullYear()}-${tenth(this.getMonth() + 1)}-${tenth(
+            this.getDate(),
+        )}`;
     }
 
     formatLocalISO(): string {
         const date = new Carbon(this.localISO());
-        return `${date.getFullYear()}-${tenth(date.getMonth() + 1)}-${
-            tenth(date.getDate())
-        }`;
+        return `${date.getFullYear()}-${tenth(date.getMonth() + 1)}-${tenth(
+            date.getDate(),
+        )}`;
     }
 
     localISO(): string {
         const offset = this.getTimezoneOffset() * 60000;
-        const localISOTime = new Date(this.valueOf() - offset).toISOString()
-            .slice(
-                0,
-                -1,
-            );
+        const localISOTime = new Date(this.valueOf() - offset)
+            .toISOString()
+            .slice(0, -1);
         return localISOTime;
     }
 

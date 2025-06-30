@@ -1,50 +1,65 @@
-export default class Bucket<T> {
-    constructor(fn: (_: T) => string) {
-        this._getID = fn;
-    }
-    private _getID: (_: T) => string;
-    private _items: T[] = [];
+export default class Datastore<K> {
+    private buffer: Array<K>;
+    private maxSize: number;
+    private searchFunction: (item: K, key: string) => boolean;
 
-    get items() {
-        return [...this._items];
+    constructor(
+        initial = <K[]>[],
+        searchFunction: (item: K, key: string) => boolean,
+        maxSize = 100,
+    ) {
+        const diff = initial.length - 100;
+        const sI = diff < 0 ? 0 : diff;
+        this.buffer = initial.slice(sI);
+        this.maxSize = maxSize;
+        this.searchFunction = searchFunction;
     }
 
-    getItem(predicate: (v: T) => boolean): T | undefined {
-        return this.items.find(predicate);
-    }
-
-    add(item: T) {
-        const index = this._items.findIndex((v) =>
-            this._getID(v) == this._getID(item)
-        );
-        if (index != -1) {
-            return;
+    add(key: string, value: K) {
+        if (
+            !this.buffer.find((item) => this.searchFunction(item, key)) &&
+            (isNaN(this.maxSize) ? true : this.buffer.length >= this.maxSize)
+        ) {
+            this.buffer.shift();
         }
-        this._items.unshift(item);
+        this.buffer.push(value);
     }
 
-    update(item: T) {
-        const index = this._items.findIndex((v) =>
-            this._getID(v) == this._getID(item)
+    get(key: string): K | undefined {
+        const item = this.buffer.find((item) => this.searchFunction(item, key));
+        if (!item) return undefined;
+        return item;
+    }
+
+    find(fn: (item: K) => boolean): K | undefined {
+        const item = this.buffer.find((item) => fn(item));
+        if (!item) return undefined;
+        return item;
+    }
+
+    has(key: string): boolean {
+        return !!this.buffer.find((item) => this.searchFunction(item, key));
+    }
+
+    delete(key: string): boolean {
+        const index = this.buffer.findIndex((item) =>
+            this.searchFunction(item, key),
         );
-        if (index == -1) {
-            return;
+        if (index > -1) {
+            this.buffer.splice(index, 1);
         }
-        this._items[index] = item;
+        return true;
     }
 
-    remove(item: T) {
-        const index = this._items.findIndex((v) =>
-            this._getID(v) == this._getID(item)
-        );
-        if (index != -1) {
-            this._items = this._items.slice(0, index).concat(
-                this._items.slice(index + 1),
-            );
-        }
+    size(): number {
+        return this.buffer.length;
     }
 
-    clear() {
-        this._items = [];
+    item(n: number): K | undefined {
+        return this.buffer.at(n);
+    }
+
+    values(): K[] {
+        return this.buffer;
     }
 }

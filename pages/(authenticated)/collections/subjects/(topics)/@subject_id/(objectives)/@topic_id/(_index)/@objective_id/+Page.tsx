@@ -1,5 +1,5 @@
 import { usePageContext } from "vike-react/usePageContext";
-import RippleButton from "../../../../../../../../../../components/RippleButton";
+import RippleButton from "@components/RippleButton";
 import { navigate } from "vike/client/router";
 
 export default function () {

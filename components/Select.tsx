@@ -10,8 +10,8 @@ import {
   useState,
 } from "react";
 import Input from "./Input";
-import { postgrest, WithAuth } from "../src/utils/postgrest";
-import { tagTitle } from "../src/utils/helper";
+import { postgrest, WithAuth } from "@src/utils/postgrest";
+import { tagTitle } from "@src/utils/helper";
 import { ActivityIndicator } from "./Icons";
 
 interface MultiSelectProp<T>

@@ -6,21 +6,27 @@ import type { Config } from "vike/types";
 // https://vike.dev/config
 
 export default {
-  // https://vike.dev/head-tags
-  description: "Deacon's Publishers | Dashboard",
-  extends: vikeReact,
-  meta: {
-    subdomain: {
-      env: {
-        server: true,
-        client: true,
-      },
+    // https://vike.dev/head-tags
+    description: "Deacon's Publishers | Dashboard",
+    extends: vikeReact,
+    meta: {
+        subdomain: {
+            env: {
+                server: true,
+                client: true,
+            },
+        },
+        collection: {
+            env: {
+                server: false,
+                client: true,
+            },
+        },
+        user: {
+            env: {
+                server: true,
+                client: true,
+            },
+        },
     },
-    collection: {
-      env: {
-        server: false,
-        client: true,
-      },
-    },
-  },
 } satisfies Config;
